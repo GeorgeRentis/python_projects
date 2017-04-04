@@ -13,9 +13,11 @@ def create_board():
 
 #print the board
 def print_board():    
-    print (board[:3])
-    print (board[3:6])
-    print (board[6:])
+    print (' | '+str(board[0])+' | '+ str(board[1])+' | ' +str(board[2])+' | ')
+    print(' -------------')
+    print (' | '+str(board[3])+' | '+ str(board[4])+' | ' +str(board[5])+' | ')
+    print(' -------------')
+    print (' | '+str(board[6])+' | '+ str(board[7])+' | ' +str(board[8])+' | ')
 
 #Create Players
 def create_players(num):
