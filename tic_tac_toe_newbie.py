@@ -3,7 +3,7 @@ board=[]
 player1_numbers = []
 player2_numbers = []
 winning_combos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
-
+tie = 0
 
 #create the board
 def create_board():
@@ -26,17 +26,20 @@ def create_players(num):
 def change_board(players):
     global board
     win = False
+    global tie
     index = 0
-    while (win == False):
-        number =(input("Choose a number %s bewtween 0-9 " % (players[index])))
-        if (number in player1_numbers or number in player2_numbers):
-            print("Number already picked " + players[index])
-            continue
-        elif (number.isalpha()):
+    while (win == False or tie < 9):
+        number =(input("Choose a number %s bewtween 0-8 " % (players[index])))
+        if (number.isalpha()):
             print("Choose a number not a letter " + players[index])
             continue
+        
+        elif (int(number) in player1_numbers or number in player2_numbers):
+            print("Number already picked " + players[index])
+            continue
+            
         elif (int(number) >= 10):
-            print("Choose a number between 0-9 " + players[index])
+            print("Choose a number between 0-8 " + players[index])
             continue
         else:
             number = int(number)
@@ -52,6 +55,7 @@ def change_board(players):
                 print_board()
                 win = check_win(player2_numbers,players[index])
                 index = 0
+        tie+=1
     else:
         start_new()
 
@@ -59,6 +63,9 @@ def change_board(players):
         
 #Check winning conditions
 def check_win(numbers,player):
+    if (tie == 8):
+        print ("You are tied")
+        return True
     for win in winning_combos:
         counter = 0;
         for  number in numbers:
@@ -67,7 +74,9 @@ def check_win(numbers,player):
                 if counter == 3:
                     print("Congratulations you win " + player)
                     return True
+
     else:
+        
         return False
 
 def start_new():
